@@ -1,0 +1,41 @@
+---
+
+- name: generate vm health check
+  hosts: Ubuntu_GCP
+  tasks:
+
+    - name: Generate VM cpu usage
+      command: vmstat
+      register: cpu_usage
+
+    - debug:
+        msg: "{{ cpu_usage['stdout_lines'] }}"
+
+    - name: generate VM memory usage
+      command: free
+      register: mem_usage
+
+    - debug:
+        msg: "{{ mem_usage['stdout_lines'] }}"
+
+    - name: generate storage usage
+      command: df -h
+      register: storage_usage
+
+    - debug:
+        msg: "{{ storage_usage['stdout_lines'] }}"
+
+    - name: generate the VM last reboot
+      command: last reboot
+      register: reboot
+
+    - debug:
+        msg: "{{ reboot['stdout_lines'] }}"
+
+    - name: generate the VM last reboot log (if any)
+      command: cat /var/log/syslog
+      register: log
+
+    - debug:
+        msg: "{{ log['stdout_lines'] }}"
+
