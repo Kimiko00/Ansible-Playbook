@@ -1,7 +1,7 @@
 ---
 
 - name: cisco Router Health Check
-  hosts: Cisco Azure
+  hosts: all
 
   tasks:
     # check the cpu usage on the router
