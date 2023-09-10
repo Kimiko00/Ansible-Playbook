@@ -1,0 +1,16 @@
+---
+
+- name: Network Getting Started First Playbook with Cisco Device
+  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks: 
+
+    - name: Get Config for IOS Devices
+      ios_facts:
+        gather_subset: all
+
+    - name:
+      debug:
+        # msg: " The detailed hostvars is {{ hostvars[inventory_hostname] }}"
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"

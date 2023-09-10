@@ -1,0 +1,17 @@
+---
+
+- name: regex
+  gather_facts: no
+  hosts: Cisco_Azure
+
+
+  tasks:
+    - name: Test Rexeg cisco uptime
+      ios_command:
+        commands:
+          - show version
+        wait_for: result[0] contains Uptime for this
+      register: wait_result
+    
+    - debug:
+        msg: "{{ wait_result }}"

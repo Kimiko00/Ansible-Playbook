@@ -1,0 +1,48 @@
+---
+
+- name: cisco Router Health Check
+  hosts: Cisco_Azure
+
+  tasks:
+    # check the cpu usage on the router
+    - name: cisco check cpu usage
+      ios_command:
+        commands:
+          -  show processes cpu
+      register: sh_outputs
+
+    - debug:
+        msg: "{{ sh_outputs['stdout_lines'] }}"
+    
+    # check the memory usage on the router
+    - name: Get the Memory Usage
+      ios_command:
+        commands:
+          - show platform software status control-processor brief
+      register: memory_usage
+    
+    - debug:
+        msg: "{{ memory_usage['stdout_lines'] }}"
+
+    # check the license status
+    - name: Get the IOS License Status
+      ios_command:
+        commands:
+          - show license udi
+      register: license_status
+
+    - debug:
+        msg: "{{ license_status['stdout_lines'] }}"
+
+    # check the device configuration 
+    - name: Get Cisco Configuration
+      ios_facts:
+        gather_subset: all
+
+    - name:
+      debug:
+        msg:
+          - "The Hostname is {{ ansible_net_hostname }}"
+          - "The Device Name is {{ ansible_net_model }}"
+          - "The Serial Number is {{ ansible_net_serialnum }}"
+          - "The OS version is {{ ansible_net_version }}"

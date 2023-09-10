@@ -1,0 +1,25 @@
+---
+
+- name: Network Getting Started Second Playbook
+  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks:
+
+    - name: Get Config for IOS Device
+      ios_facts:
+        gather_subset: all
+
+    - name: Display the Config
+      debug:
+        msg: "The Hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+    - name: Create Username
+      ios_config:
+        backup: yes
+        lines:
+          - username yorha priv 15 secret yorha
+
+    - name: Get changed config dor IOS devices
+      ios_facts:
+        gather_subset: all

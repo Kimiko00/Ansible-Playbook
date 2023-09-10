@@ -1,0 +1,272 @@
+Building configuration...
+
+Current configuration : 7362 bytes
+!
+! Last configuration change at 08:19:25 UTC Tue Sep 5 2023
+!
+version 17.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service call-home
+platform qfp utilization monitor load 80
+platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CSR1000V
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition GS
+ rd 100:100
+ !
+ address-family ipv4
+ exit-address-family
+!
+logging persistent size 1000000 filesize 8192 immediate
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default local none 
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+ip domain name CSR1000V.cloudapp.net
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment pkcs12
+ revocation-check crl
+!
+crypto pki trustpoint TP-self-signed-1785504062
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1785504062
+ revocation-check none
+ rsakeypair TP-self-signed-1785504062
+!
+!
+crypto pki certificate chain SLA-TrustPoint
+ certificate ca 01
+  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 
+  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 
+  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 
+  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 
+  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 
+  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D 
+  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 
+  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE 
+  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC 
+  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 
+  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 
+  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 
+  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 
+  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 
+  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 
+  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 
+  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 
+  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B 
+  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 
+  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C 
+  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B 
+  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 
+  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB 
+  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 
+  D697DF7F 28
+  	quit
+crypto pki certificate chain TP-self-signed-1785504062
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31373835 35303430 3632301E 170D3233 30393035 30383139 
+  34325A17 0D333330 39303430 38313934 325A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 37383535 
+  30343036 32308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100B865 75912BAE EFAB2A76 B0F01DA1 1EC004F8 D22BB501 E951F2B6 
+  4C30B258 FFB7366C 930A7BE7 728E3338 782F73E8 264479F2 2F52B315 EC78772E 
+  CB9D0BED 134495E0 AFAD6DAF 14FCBDDE 103CB0A7 8CE6CD78 75EA8B01 A1C0A2A8 
+  19686867 B4F69E76 B17521EF E25079A4 BA9AC2F2 4B1C3B2D B114ED67 B97D744B 
+  F80A9807 423D4090 A789DD3F ECFDCEB2 BFD5743D 61D8C617 458770E5 AB64CE3A 
+  5C3ECCC9 67EC5C67 3BD7F326 D9121A7C 5900624D 3A159B7C C84EA593 29B74B75 
+  ADEECADE CD6C1A08 399A08D2 2A6EEADE BE2AAE2D F82F2B67 119E95E8 DB752D3B 
+  3D4665D9 FF02E582 BFCC7E35 F5EF9D57 A0A8F6C0 86CFDA24 CB0716C5 3370DDD5 
+  576198A3 2E390203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 1470408D A36C10FC 383AF3E1 4119C308 59BD9423 
+  7B301D06 03551D0E 04160414 70408DA3 6C10FC38 3AF3E141 19C30859 BD94237B 
+  300D0609 2A864886 F70D0101 05050003 82010100 71C297A4 23FCD3B7 B62FFD32 
+  25CCE26C BF344829 9952F165 1759378A F1EF5591 283849B4 FFA718FE 3603BBBC 
+  D60A3054 9DFBAB8A 7AD674FF 3CD822E7 17B67980 CD39D467 97852DEE 6A92066B 
+  20229E70 A05A5C72 21FCDD1D CBA79A0D 2415C915 2F24174F C24FC60D D3A944E2 
+  97259BDE 2029EE1D 580796FF 44C3C25A 24675778 5B356E38 4A4C043E F57049F7 
+  4C1BEC87 B9F5695E 63EBBD46 6CC3DCEA 8023D7FE 88449154 9162396D DA85F6D0 
+  5CD23A5E 0D936C5D BBEC0C12 20D63C4D F6879F2C 67E21FB2 75FB451B 820682B3 
+  87C54288 6FD4DAA6 6F860EA0 99EB25C9 CEFD98E6 DF6FF559 F1BDDCE6 0F9C5346 
+  F941099A F09F0547 E6610955 FEC02FE3 53D955D2
+  	quit
+!
+crypto pki certificate pool
+ cabundle nvram:ios_core.p7b
+!
+license udi pid CSR1000V sn 99POFAF6FDE
+diagnostic bootup level minimal
+memory free low-watermark processor 71497
+!
+!
+spanning-tree extend system-id
+!
+username msarouter privilege 15 secret 9 $9$aiqw48xXxFL8F.$2iD37DCdPTpE96PwZQQKWUvtBisY4VlsneFRMeuKl0.
+username yota privilege 15 password 7 123D001616181C05292E7678616161
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface VirtualPortGroup0
+ vrf forwarding GS
+ ip address 192.168.35.101 255.255.255.0
+ ip nat inside
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1
+ ip address dhcp
+ ip nat outside
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+iox
+ip forward-protocol nd
+ip tcp window-size 8192
+ip http server
+ip http secure-server
+!
+ip nat inside source list GS_NAT_ACL interface GigabitEthernet1 vrf GS overload
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+ip route vrf GS 0.0.0.0 0.0.0.0 GigabitEthernet1 10.0.0.1 global
+ip ssh rsa keypair-name sshkeys
+ip ssh version 2
+ip ssh pubkey-chain
+  username msarouter
+   key-hash ssh-rsa D6E7C269C8FA493E0B88600DFD8107CC 
+  username yota
+   key-hash ssh-rsa D6E7C269C8FA493E0B88600DFD8107CC 
+   key-hash ssh-rsa 9453E08EA8CDAF99B705B8E9AEEC44C1 
+no ip ssh server authenticate user keyboard
+ip ssh server algorithm publickey ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-rsa x509v3-ecdsa-sha2-nistp256 x509v3-ecdsa-sha2-nistp384 x509v3-ecdsa-sha2-nistp521
+ip scp server enable
+!
+ip access-list standard GS_NAT_ACL
+ 10 permit 192.168.35.0 0.0.0.255
+!
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input ssh
+line vty 5 20
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+app-hosting appid guestshell
+ app-vnic gateway1 virtualportgroup 0 guest-interface 0
+  guest-ipaddress 192.168.35.102 netmask 255.255.255.0
+ app-default-gateway 192.168.35.101 guest-interface 0
+ name-server0 8.8.8.8
+end

@@ -1,0 +1,15 @@
+---
+
+- name: Automate Generating SSh Pub Keys
+  hosts: Ansible
+  tasks:
+
+    - name: Generating SSh Keys
+      ansible.posix.authorized_key:
+        user: msauser
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      register: ssh_key
+
+    - debug:
+        msg: "{{ ssh_key['key'] }}"

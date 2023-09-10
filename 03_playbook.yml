@@ -1,0 +1,30 @@
+---
+  
+- name: Network Getting Started third playbook
+  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks:
+
+    - name: Getting config for IOS devices
+      ios_facts:
+        gather_subset: all
+
+    - name: Display the config
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+    - name: Change Hostname
+      ios_config:
+        backup: yes
+        lines:
+          - hostname ANSIBLE_CONFIGURED
+
+    - name: Get changed config for IOS devices
+      ios_facts:
+        gather_subset: all
+
+    - name: Display the changed config
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
