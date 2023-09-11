@@ -4,6 +4,18 @@
   hosts: Cisco_Azure
 
   tasks:
+    # Check the IOS Device Configuration
+    - name: Cisco Device Config
+      ios_facts:
+        gather_subset: all
+
+    - debug:
+        msg:
+          - "The Hostname is {{ ansible_net_hostname }}"
+          - "The Device Name is {{ ansible_net_model }}"
+          - "The Serial Number is {{ ansible_net_serialnum }}"
+          - "The OS version is {{ ansible_net_version }}" 
+
     # check the cpu usage on the router
     - name: cisco check cpu usage
       ios_command:
@@ -34,15 +46,12 @@
     - debug:
         msg: "{{ license_status['stdout_lines'] }}"
 
-    # check the device configuration 
-    - name: Get Cisco Configuration
-      ios_facts:
-        gather_subset: all
+    # check the Device Interface
+    - name: get the IOS Device Interface
+      ios_command:
+        commands:
+          - show int
+      register: interface
 
-    - name:
-      debug:
-        msg:
-          - "The Hostname is {{ ansible_net_hostname }}"
-          - "The Device Name is {{ ansible_net_model }}"
-          - "The Serial Number is {{ ansible_net_serialnum }}"
-          - "The OS version is {{ ansible_net_version }}"
+    - debug:
+        msg: "{{ interface['stdout_lines'] }}"
