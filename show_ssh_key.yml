@@ -1,0 +1,19 @@
+---
+
+- name: Show SSH Keys
+  hosts: Ansible
+  tasks:
+
+    - name: Show SSH public keys
+      command: cat ~/.ssh/id_rsa.pub
+      register: pub
+
+    - debug:
+        msg: "{{ pub['stdout_lines'] }}"
+
+    - name: show SSH Authorized Keys
+      command: cat ~/.ssh/authorized_keys
+      register: auth
+
+    - debug:
+        msg: "{{ auth['stdout_lines'] }}"

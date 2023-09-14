@@ -10,8 +10,10 @@
       ios_command:
         commands:
           - show version
-        wait_for: result[0] contains Uptime for this
+        wait_for: result[0] contains uptime is
       register: wait_result
-    
+   
     - debug:
-        msg: "{{ wait_result }}"
+        msg: 
+          - "{{ wait_result['stdout_lines'] | regex_findall('\\S+ uptime is [\\d+] [a-zA-Z]+, [\\d]+ [a-zA-Z]+') }}"
+          - "{{ wait_result['stdout_lines'] | regex_findall('Uptime [*a-zA-Z \\d,]+') }}"
